@@ -1,0 +1,150 @@
+bind "Alt" "+jumpcrouch"
+alias +jumpcrouch "+jump; wait 5; duckON"
+alias -jumpcrouch "wait 5; duckOFF; -jump"
+alias duckON "+duck"
+alias duckOFF "-duck" 
+
+//fix jump from crouch state
+bind "ctrl" "+normalduck"
+bind "/" "+normalduck"
+alias +normalduck "+duck; alias duckON; alias duckOFF"
+alias -normalduck "-duck; alias duckON +duck; alias duckOFF -duck"
+
+// IMPORTANT
+// IN ORDER TO NOT BREAK YOUR OTHER CLASSES ADD THE FOLLOWING CODE IN THE BEGINNING OF ALL YOUR CLASS CFGs
+
+bind 1 slot1
+bind 2 slot2
+bind 3 slot3
+bind 4 slot4
+bind 5 slot5
+bind q lastinv
+bind mwheelup invprev
+bind mwheeldown invnext
+bind mouse1 +attack
+
+//Code written by Edmond
+
+
+
+
+//Defaults for Spy, these are changed everytime I switch to the class, put settings here
+cl_crosshair_blue "200"
+cl_crosshair_green "175"
+cl_crosshair_red "0"
+cl_crosshair_scale "30"
+cl_crosshair_file "crosshair2"
+
+r_drawviewmodel 1
+
+
+//Ambassador Zoom Script\
+//first sensitivity is zoom sens 
+//second sensitivity is alias zoom out sens
+alias "+ambyzoom" "fov_desired 75; viewmodel_fov 54; viewmodel_fov_demo 100; sensitivity 3.08"
+alias "-ambyzoom" "fov_desired 130; viewmodel_fov 130; viewmodel_fov_demo 125; sensitivity 3.15"
+bind "shift" "+ambyzoom"
+
+
+
+
+
+
+//Viewmodel Script
+
+
+bind "q" "switcher"
+bind "mouse2" "+watch;spec_prev" 
+
+
+alias knife_vm_mode "bind mouse1 +viewmodel_knife"
+alias amby_vm_mode "bind mouse1 +viewmodel_amby"
+alias sap_vm_mode "bind mouse1 +viewmodel_sap"
+
+alias +viewmodel_knife "+attack;r_drawviewmodel 1;spec_next"
+alias -viewmodel_knife "-attack;r_drawviewmodel 1" 
+alias +viewmodel_amby "+attack;r_drawviewmodel 0;spec_next"
+alias -viewmodel_amby "-attack;r_drawviewmodel 0" 
+alias +viewmodel_sap "+attack;r_drawviewmodel 1;spec_next"
+alias -viewmodel_sap "-attack;r_drawviewmodel 1"
+
+
+alias equip_knife "slot3;r_drawviewmodel 1;knife_vm_mode"
+
+alias equip_knife2amby "equip_knife;alias switcher equip_amby2knife;bind 2 equip_sap2knife;bind 3 equip_knife;bind 1 equip_amby2knife"
+alias equip_knife2sap "equip_knife;alias switcher equip_sap2knife;bind 2 equip_sap2knife;bind 3 equip_knife;bind 1 equip_amby2knife"
+
+alias equip_amby "slot1;r_drawviewmodel 1;amby_vm_mode"
+
+alias equip_amby2sap "equip_amby;alias switcher equip_sap2amby;bind 2 equip_sap2amby;bind 3 equip_knife2amby;bind 1 equip_amby"
+alias equip_amby2knife "equip_amby;alias switcher equip_knife2amby;bind 2 equip_sap2amby;bind 3 equip_knife2amby;bind 1 equip_amby"
+
+alias equip_sap "slot2;r_drawviewmodel 1;sap_vm_mode"
+
+alias equip_sap2knife "equip_sap;alias switcher equip_knife2sap;bind 2 equip_sap;bind 3 equip_knife2sap;bind 1 equip_amby2sap"
+alias equip_sap2amby "equip_sap;alias switcher equip_amby2sap;bind 2 equip_sap;bind 3 equip_knife2sap;bind 1 equip_amby2sap"
+
+alias +watch "+attack2;r_drawviewmodel 1" 
+alias -watch "-attack2;r_drawviewmodel 1" 
+
+equip_knife2amby
+
+
+//Ambassador Cooldown Color Change
+//Changes the color of the crosshair for a brief period of time, the exact time it takes for the Ambassador to cool off
+alias +AmbyHot "+attack; cl_crosshair_blue 0; cl_crosshair_green 100; cl_crosshair_red 255;"
+alias -AmbyHot "-attack; wait 165; cl_crosshair_blue 200; cl_crosshair_green 175; cl_crosshair_red 0"
+
+
+//Cooldown and Disguise
+//For when you want both commands enabled together
+//Changes the color of the crosshair for a brief period of time, the exact time it takes //for the Ambassador to cool off
+alias +AmbyandDisguise "+attack; cl_crosshair_blue 0; cl_crosshair_green 100; cl_crosshair_red 255; wait 195; cl_crosshair_blue 200; cl_crosshair_green 175; cl_crosshair_red 0"
+alias -AmbyandDisguise "-attack; lastdisguise"
+
+
+
+//Spy Toggle
+//Toggles auto diguise commands and Amnbassador Cooldown on and off
+alias "spytoggle" "set1"
+alias "set1" "bind mouse1 +disguiseattack; alias spytoggle set2; echo DISGUISE ON ATTACK ENABLED"
+alias "set2" "bind mouse1 +AmbyHot; alias spytoggle set3; echo AMBY COLOR CHANGE ENABLED"
+alias "set3" "bind mouse1 +AmbyandDisguise; alias spytoggle set4; echo AUTO DISGUISE AND COOLDOWN ENABLED"
+alias "set4" "bind mouse1 +attack; alias spytoggle set1; echo DISGUISE ON ATTACK AND COOLDOWN DISABLED"
+bind "G" "spytoggle"
+
+
+
+//Disguise drop key, press n or whatever key bound to drop disguise so you don't have to attack
+alias dropdisguise "echo DISGUISE_DROP;disguise 8 -2"
+
+bind "n" "dropdisguise"
+
+alias dotxhairtype "dotxhairtypeb"
+alias dotxhairtypeb "cl_crosshair_file crosshair1;cl_crosshair_scale 30;alias dotxhairtype dotxhairtyper"
+alias dotxhairtyper "cl_crosshair_file crosshair5;cl_crosshair_scale 15;alias dotxhairtype dotxhairtypeb"
+ 
+ 
+alias dotxhaircolor "dotxhaircolorb"
+alias dotxhaircolorb "cl_crosshair_blue 0; cl_crosshair_green 255; cl_crosshair_red 0;alias dotxhaircolor dotxhaircolorc"
+alias dotxhaircolorc "cl_crosshair_blue 255; cl_crosshair_green 0; cl_crosshair_red 255;alias dotxhaircolor dotxhaircolord"
+alias dotxhaircolord "cl_crosshair_blue 240; cl_crosshair_green 255; cl_crosshair_red 0;alias dotxhaircolor dotxhaircolorb"
+ 
+//change 1 to 0 for manual reload//
+cl_autoreload 1
+
+bind "w" +fw
+alias +fw "+forward;dotxhaircolor"
+alias -fw "-forward;dotxhaircolor"
+ 
+bind "s" +bw
+alias +bw "+back;dotxhaircolor"
+alias -bw "-back;dotxhaircolor"
+ 
+bind "d" +mr
+alias +mr "+moveright;dotxhaircolor"
+alias -mr "-moveright;dotxhaircolor"
+ 
+bind "a" +ml
+alias +ml "+moveleft;dotxhaircolor"
+alias -ml "-moveleft;dotxhaircolor"
